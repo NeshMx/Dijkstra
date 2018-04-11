@@ -5,7 +5,7 @@ def find_all_paths(graph, start, end, path=[]):
     path = path + [start]
     if start == end:
         return [path]
-    if not graph.has_key(start):
+    if start not in graph:
         return []
     paths = []
     for node in graph[start]:
@@ -52,18 +52,23 @@ def shortest_path(G, start, end):
     return Path
 
 
+# graph = {
+#     'A': {'B': 10, 'D': 4, 'F': 10},
+#     'B': {'E': 5, 'J': 10, 'I': 17},
+#     'C': {'A': 4, 'D': 10, 'E': 16},
+#     'D': {'F': 12, 'G': 21},
+#     'E': {'G': 4},
+#     'F': {'H': 3},
+#     'G': {'J': 3},
+#     'H': {'G': 3, 'J': 5},
+#     'I': {},
+#     'J': {'I': 8},
+# }
+
 graph = {
-    'A': {'B': 10, 'D': 4, 'F': 10},
-    'B': {'E': 5, 'J': 10, 'I': 17},
-    'C': {'A': 4, 'D': 10, 'E': 16},
-    'D': {'F': 12, 'G': 21},
-    'E': {'G': 4},
-    'F': {'H': 3},
-    'G': {'J': 3},
-    'H': {'G': 3, 'J': 5},
-    'I': {},
-    'J': {'I': 8},
+    'a': {'b': 10, 'c':5}, 
+    'b': {'c': 6},
 }
 
-print("Caminos: \n" + "\n".join([str(i) for i in find_all_paths(graph, 'A', 'J')]))
-print("Camino mas corto: " + " -> ".join([str(i) for i in shortest_path(graph, 'A', 'J')]))
+print("Caminos: \n" + "\n".join([str(i) for i in find_all_paths(graph, 'a', 'c')]))
+print("Camino mas corto: " + " -> ".join([str(i) for i in shortest_path(graph, 'a', 'c')]))
