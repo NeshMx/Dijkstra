@@ -1,4 +1,17 @@
+# Autor: Alejandro Huerta Campos - 14141111
+# Materia: Administracion de Redes
+
+# Librería para crear diccionarios con mejoras
 from priodict import priorityDictionary
+
+'''
+    Función que recibe como parámetros:
+        - Grafo predefinido
+        - Nodo inicial
+        - Nodo destino
+        - Camino
+    Retorna una lista de posibles caminos desde el nodo inicial al destino
+'''
 
 
 def find_all_paths(graph, start, end, path=[]):
@@ -32,12 +45,21 @@ def Dijkstra(G, start, end=None):
             if w in D:
                 if vwLength < D[w]:
                     raise ValueError(
-                        "Dijkstra: found better path to already-final vertex")
+                        "Dijkstra: se encotro un mejor camino al nodo destino.")
             elif w not in Q or vwLength < Q[w]:
                 Q[w] = vwLength
                 P[w] = v
 
     return (D, P)
+
+
+'''
+    Función que recibe como parámetros:
+        - Grafo predefinido
+        - Nodo inicial
+        - Nodo destino
+    Retorna camino más corto desde el nodo inicial al destino
+'''
 
 
 def shortest_path(G, start, end):
@@ -51,6 +73,7 @@ def shortest_path(G, start, end):
     Path.reverse()
     return Path
 
+# Grafos de prueba
 
 # graph = {
 #     'A': {'B': 10, 'D': 4, 'F': 10},
@@ -65,10 +88,26 @@ def shortest_path(G, start, end):
 #     'J': {'I': 8},
 # }
 
+# graph = {
+#     'a': {'b': 10, 'c':5},
+#     'b': {'c': 6},
+# }
+
+
 graph = {
-    'a': {'b': 10, 'c':5}, 
-    'b': {'c': 6},
+    'A': {'B': 1, 'C': 2, 'D': 2},
+    'B': {'A': 1, 'C': 5, 'D': 1},
+    'C': {'A': 2, 'B': 5, 'D': 4, 'E': 2},
+    'D': {'A': 2, 'B': 1, 'C': 4, 'E': 1},
+    'E': {'C': 2, 'D': 1}
 }
 
-print("Caminos: \n" + "\n".join([str(i) for i in find_all_paths(graph, 'a', 'c')]))
-print("Camino mas corto: " + " -> ".join([str(i) for i in shortest_path(graph, 'a', 'c')]))
+# Casos de prueba
+
+start = input('Introduce el nodo inicial: ')
+end = input('Introduce el nodo destino: ')
+
+print("Caminos: \n" + "\n".join([str(i)
+                                 for i in find_all_paths(graph, start, end)]))
+print("Camino mas corto: " + " -> ".join([str(i)
+                                          for i in shortest_path(graph, start, end)]))
